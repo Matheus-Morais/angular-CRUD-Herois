@@ -1,0 +1,39 @@
+<div class="container">
+    <h1>{{title}}</h1>
+    <p>Os Vingadores (Avengers no original em inglês) são um grupo de super-heróis de história em quadrinhos publicados nos Estados Unidos pela editora Marvel Comics. O grupo também aparece em adaptações da Marvel para cinema, desenho animado e videogames. (Wikipedia)</p>
+    <p>Alguns membros da formação atual (clique para ver detalhes):</p>
+    <div>
+        <app-heroi *ngFor="let vingador of vingadores" [heroi]="vingador" 
+        [estahSelecionado]="selecionado && vingador.id == selecionado.id" 
+        (onSelecionado)="heroiSelecionado($event) "></app-heroi>
+    </div>
+
+    <div *ngIf="selecionado">
+        {{ selecionado | json }} <button type="submit" class="btn btn-primary" (click)="RemoverV(selecionado)">Remover</button>
+    </div>
+
+
+    <br>
+    <h2>Cadastrar herói</h2>
+    <form #formCadastro="ngForm" (ngSubmit)="cadastrar()">
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="novo.nome" required>
+        </div>
+        <div class="form-group">
+            <label for="pessoa">Pessoa:</label>
+            <input type="text" class="form-control" id="pessoa" name="pessoa" [(ngModel)]="novo.pessoa" required>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!formCadastro.valid">Salvar</button>
+    </form>
+    <br/>
+    <h2>Excluir herói</h2>
+    <form>
+        <div class = "form-group">
+            <label for="id">Digite o id do herói a ser removido, depois clique no botão:</label>
+            <input #formExcluir type="number" class="form-control">
+            <br/>
+            <button type="submit" class="btn btn-primary" (click)="RemoverVingador(formExcluir.value)">Remover</button>
+        </div>        
+    </form>
+</div>
