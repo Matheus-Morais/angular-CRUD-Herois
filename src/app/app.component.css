@@ -2,3 +2,14 @@
     font-size: 14pt;
     font-weight: bold;
 }
+.card-group{
+    width: 250px;
+    float: right;
+    margin: 1%;
+}
+h2{
+    position: relative;
+}
+.container{
+    margin-left: 15%;
+}
