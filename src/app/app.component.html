@@ -1,33 +1,18 @@
 <div class="container">
-    <h1>{{title}}</h1>
-    <p>Os Vingadores (Avengers no original em inglês) são um grupo de super-heróis de história em quadrinhos publicados nos Estados Unidos pela editora Marvel Comics. O grupo também aparece em adaptações da Marvel para cinema, desenho animado e videogames. (Wikipedia)</p>
-    <p>Alguns membros da formação atual (clique para ver detalhes):</p>
-    <!-- Ultilizando cads para mostrar os vingadores-->
-        <div  class="card-group" *ngFor="let vingador of vingadores">
-            <img class="card-img-top" [src]="vingador.urlDaFoto" [alt]="vingador.nome" height="200">
-            <div class="card-body">
-                <h4 class="card-title">{{vingador.nome}}</h4>
-                <p class="card-text">{{vingador.pessoa}}</p>
-                <button type="submit" class="btn btn-primary" (click)="RemoverVingador(vingador.id)">Remover</button>
-                
-            </div>
-        </div>   
-    <br>
-    <form #formCadastro="ngForm" (ngSubmit)="cadastrar()">
-        <legend>Cadastrar herói</legend>
-        <div class="form-group">
-            <label for="nome">Nome de herói:</label>
-            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="novo.nome" required>
+    <h1>Gerenciador de Heróis (Vingadores)</h1>
+    <div class="row">
+        <div class="col">
+            <app-lista-de-herois [lista]="vingadores" 
+                (onExcluir)="excluir($event)"
+                (onEditar)="editar($event)">
+            </app-lista-de-herois>
         </div>
-        <div class="form-group">
-            <label for="pessoa">Nome real:</label>
-            <input type="text" class="form-control" id="pessoa" name="pessoa" [(ngModel)]="novo.pessoa" required>
+        <div class="col">
+            <h2>Cadastrar herói</h2>
+            <app-formulario
+                 [novo]="novo" (onCadastrar)="cadastrar($event)">
+            </app-formulario> 
         </div>
-        <div class="form-group">
-            <label for="urlDaFoto">Url da foto do vingador:</label>
-            <input type="text" class="form-control" id="urlDaFoto" name="urlDaFoto" [(ngModel)]="novo.urlDaFoto" required>
-        </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!formCadastro.valid">Salvar</button>
-    </form>
-    <br/>
-</div>
+        <br>
+
+    </div>

@@ -5,6 +5,8 @@ import {HttpModule} from '@angular/http';
 import {AppComponent} from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HeroiComponent } from './heroi/heroi.component';
+import { ListaDeHeroisComponent } from './lista-de-herois/lista-de-herois.component';
+import { FormularioComponent } from './formulario/formulario.component';
 
 @NgModule({
     imports: [
@@ -17,6 +19,8 @@ import { HeroiComponent } from './heroi/heroi.component';
     declarations: [
         AppComponent,
         HeroiComponent,
+        ListaDeHeroisComponent,
+        FormularioComponent,
     ],
     providers: [
     ],

@@ -8,49 +8,53 @@ import '../assets/css/style.css';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    title: string;
     vingadores: Array<Vingador>;
-    selecionado: Vingador;
-    novo: Vingador = new Vingador(0, '', '','');
+    novo: Vingador = new Vingador(0, '', '');
+    ultimo_id = 5;
+    editando = false;
 
     constructor() {
-        this.title = 'Vingadores';
         this.vingadores = [
-            new Vingador(0, 'Capitão América', 'Steve Rogers',  'https://upload.wikimedia.org/wikipedia/pt/b/bc/Steven_Rogers_%28Earth-616%29.jpg'),
-            new Vingador(1, 'Viúva Negra', 'Natasha Romanoff', 'https://upload.wikimedia.org/wikipedia/pt/1/1c/Black_Widow_Vol_6_12.jpg'),
-            new Vingador(2, 'Ms. Marvel', 'Carol Danvers', 'https://i.pinimg.com/736x/b1/f0/a1/b1f0a1bc45eab780722ebc34b3145e25--captain-marvel-shazam-marvel-dc.jpg'),
-            new Vingador(3, 'Deadpool', 'Wade Wilson', 'https://upload.wikimedia.org/wikipedia/pt/c/ce/Deadpool_Vol_4_7.jpg'),
-            new Vingador(4, 'Gavião Arqueiro', 'Clint Barton', 'https://upload.wikimedia.org/wikipedia/pt/c/cc/Gavi%C3%A3o_Arqueiro_por_Clint_Langley.JPG')
+            new Vingador(1, 'Capitão América', 'Steve Rogers'),
+            new Vingador(2, 'Viúva Negra', 'Natasha Romanoff'),
+            new Vingador(3, 'Ms. Marvel', 'Carol Danvers'),
+            new Vingador(4, 'Deadpool', 'Wade Wilson'),
+            new Vingador(5, 'Gavião Arqueiro', 'Clint Barton')
         ];
     }
 
     ngOnInit(): void {
     }
 
-    heroiSelecionado(vingador: Vingador): void {
-        this.selecionado = vingador;
-    }
-
     cadastrar(): void {
-        const novoId: number = this.vingadores.length + 1;       
-        this.vingadores.push(new Vingador(novoId, this.novo.nome, this.novo.pessoa, this.novo.urlDaFoto));
-        this.novo = new Vingador(0, '', '','');
+        if (!this.editando) {
+            const novoId: number = ++this.ultimo_id;
+            this.vingadores.push(new Vingador(novoId, this.novo.nome, this.novo.pessoa));
+            this.novo = new Vingador(0, '', '');
+        } else {
+            this.novo = new Vingador(0, '', '');
+            this.editando = false;
+        }
     }
 
-    RemoverVingador(index: number): void{ //nome é o nome do Vingador passado por parametro
-            //this.vingadores.splice(nome, 1);
-        var id = index;
-        for (let i of this.vingadores) {
-            if(index== i.id){
-                if(this.vingadores.length!=1){
-                    this.vingadores.splice(id,1);
-                
-                }
-                else{
-                    this.vingadores.splice(0,1)
-                }
-                
+    encontrar(id: number): number {
+        let indice = -1;
+        for (let i = 0; i < this.vingadores.length; i++) {
+            if (this.vingadores[i].id == id) {
+                indice = i;
+                break;
             }
         }
+        return indice;
+    }
+
+    excluir(heroi: Vingador): void {
+        this.vingadores.splice(this.vingadores.indexOf(heroi), 1);
+        this.novo = new Vingador(0, '', '');
+    }
+
+    editar(heroi: Vingador): void {
+        this.novo = heroi;
+        this.editando = true;
     }
 }
